@@ -1,1 +1,2 @@
 from .person_repository_interface import PersonRepositoryInterface
+from .classroom_repository_interface import ClassRoomRepositoryInterface

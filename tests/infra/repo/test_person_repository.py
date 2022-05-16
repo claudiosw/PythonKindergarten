@@ -46,4 +46,4 @@ def test_select_person():
     assert data in query_person2
     assert data in query_person3
 
-    engine.execute("DELETE FROM persons WHERE id='{}';".format(person_id))
+    engine.execute(f"DELETE FROM persons WHERE id='{person_id}';")
