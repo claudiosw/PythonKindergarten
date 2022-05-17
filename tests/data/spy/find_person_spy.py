@@ -1,26 +1,26 @@
-from typing import Type, Dict, List
-from src.domain.use_cases import FindPersonInterface
-from src.data.interfaces import PersonRepositoryInterface
+from typing import Dict, List
 from src.domain.models import Persons
+from tests.domain.mock_person import mock_persons
 
 
-class FindPerson(FindPersonInterface):
-    """ Class to define use case Find Person """
+class FindPersonSpy:
+    """ Class to define usecase: Select Person """
 
-    def __init__(self, person_repository: Type[PersonRepositoryInterface]):
+    def __init__(self, person_repository: any):
         self.person_repository = person_repository
+        self.by_id_param = {}
+        self.by_name_param = {}
+        self.by_id_and_name_param = {}
 
     def by_id(self, person_id: int) -> Dict[bool, List[Persons]]:
-        """Select Person By id
-        :param - person_id: id of the person
-        :param - Dictionary with informations of the process
-        """
+        """ Select Person by id """
 
+        self.by_id_param["id"] = person_id
         response = None
         validate_entry = isinstance(person_id, int)
 
         if validate_entry:
-            response = self.person_repository.select_person(person_id=person_id)
+            response = [mock_persons()]
 
         return {"Success": validate_entry, "Data": response}
 
@@ -30,11 +30,12 @@ class FindPerson(FindPersonInterface):
         :param - Dictionary with informations of the process
         """
 
+        self.by_name_param["name"] = name
         response = None
         validate_entry = isinstance(name, str)
 
         if validate_entry:
-            response = self.person_repository.select_person(name=name)
+            response = [mock_persons()]
 
         return {"Success": validate_entry, "Data": response}
 
@@ -45,11 +46,13 @@ class FindPerson(FindPersonInterface):
         :param - Dictionary with informations of the process
         """
 
+        self.by_id_and_name_param["id"] = person_id
+        self.by_id_and_name_param["name"] = name
         response = None
         validate_entry = isinstance(name, str) and isinstance(person_id, int)
 
         if validate_entry:
-            response = self.person_repository.select_person(person_id=person_id, name=name)
+            response = [mock_persons()]
 
         return {"Success": validate_entry, "Data": response}
 
