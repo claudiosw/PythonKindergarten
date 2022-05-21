@@ -1,0 +1,2 @@
+from .person_repository_spy import PersonRepositorySpy
+from .classroom_repository_spy import ClassRoomRepositorySpy
